@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shop Điện Thoại - CSS Grid</title>
+  <style>
+    /* Reset cơ bản */
+    :root{
+      --accent:#0b71ff;
+      --muted:#6b7280;
+      --card-bg:#ffffff;
+      --page-bg:#f5f7fa;
+      --radius:12px;
+      --gap:1rem;
+      --max-width:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--page-bg);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:1.25rem;
+      display:flex;
+      justify-content:center;
+    }
+
+    /* Container chính dùng Grid */
+    .site{
+      width:100%;
+      max-width:var(--max-width);
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+      gap:var(--gap);
+    }
+
+    header{
+      grid-area:header;
+      background:linear-gradient(90deg,var(--card-bg),#f8fafc);
+      padding:0.9rem 1rem;
+      border-radius:var(--radius);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow: 0 4px 12px rgba(15,23,42,0.04);
+    }
+    .brand{
+      display:flex;
+      gap:.75rem;
+      align-items:center;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+      box-shadow:0 6px 18px rgba(11,113,255,0.18);
+    }
+    .search{
+      margin-left:1rem;
+      flex:1;
+      display:flex;
+    }
+    .search input{
+      width:100%;
+      padding:.6rem .75rem;
+      border:1px solid #e6e9ee;
+      border-radius:10px;
+      outline:none;
+      font-size:0.95rem;
+      background:white;
+    }
+    .actions{display:flex;gap:.5rem;align-items:center}
+    .btn{
+      background:var(--accent);
+      color:white;padding:.5rem .75rem;border-radius:10px;border:none;font-weight:600;cursor:pointer;
+      box-shadow:0 6px 12px rgba(11,113,255,0.12);
+    }
+    .btn--ghost{background:transparent;color:var(--accent);border:1px solid rgba(11,113,255,0.12);box-shadow:none}
+
+    /* Sidebar */
+    aside{
+      grid-area:sidebar;
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      padding:1rem;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+      display:flex;
+      flex-direction:column;
+      gap:.75rem;
+      min-height:320px;
+    }
+    .filter-title{font-weight:700;margin-bottom:.25rem}
+    .category-list{display:flex;flex-direction:column;gap:.35rem}
+    .category-list button{
+      text-align:left;padding:.5rem .6rem;border-radius:8px;border:1px solid #eef2ff;background:transparent;cursor:pointer;font-size:.95rem;
+    }
+
+    /* Main content */
+    main{
+      grid-area:main;
+      background:transparent;
+      display:flex;
+      flex-direction:column;
+      gap:var(--gap);
+    }
+
+    /* Product grid */
+    .products{
+      display:grid;
+      gap:1rem;
+      /* responsive columns: auto-fit with minmax uses Grid */
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .card{
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:0.85rem;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.03);
+      display:flex;
+      flex-direction:column;
+      gap:.6rem;
+      min-height:300px;
+    }
+    .thumb{
+      height:170px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#f8fafc;border:1px solid #eef2f6;
+      overflow:hidden;
+    }
+    .thumb img{max-width:100%; max-height:100%; object-fit:contain}
+    .meta{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+    .title{font-weight:700;font-size:.98rem}
+    .price{font-weight:800;color:var(--accent)}
+    .specs{color:var(--muted);font-size:.9rem}
+    .card-footer{margin-top:auto;display:flex;gap:.5rem}
+    .icon-btn{flex:1;padding:.5rem;border-radius:10px;border:1px solid #e6e9ee;background:transparent;cursor:pointer}
+    .add{background:linear-gradient(90deg,var(--accent),#1f7bff);color:white;border:none;font-weight:700}
+
+    /* Banner / highlight */
+    .hero{
+      background:linear-gradient(90deg, rgba(11,113,255,0.06), rgba(3,105,161,0.03));
+      padding:1rem;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      box-shadow:0 6px 18px rgba(11,113,255,0.03);
+    }
+    .hero h2{margin:0;font-size:1.15rem}
+    .hero p{margin:0;color:var(--muted)}
+
+    /* Footer */
+    footer{
+      grid-area:footer;
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      padding:1rem;
+      display:flex;justify-content:space-between;align-items:center;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+    }
+
+    /* Responsive: chuyển sidebar lên trên trên mobile */
+    @media (max-width:900px){
+      .site{
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "main"
+          "sidebar"
+          "footer";
+      }
+      aside{order:3}
+      .search{display:none} /* ẩn search ở header để tiết kiệm không gian */
+      .brand .name{display:none}
+    }
+
+    /* tiny utilities */
+    .muted{color:var(--muted);font-size:.95rem}
+    .badge{background:#eef2ff;color:var(--accent);padding:.2rem .5rem;border-radius:999px;font-weight:700;font-size:.8rem}
+  </style>
+</head>
+<body>
+  <div class="site" role="document" aria-label="Trang shop điện thoại">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DVD</div>
+        <div>
+          <div style="font-weight:800">DVDMobileShop</div>
+          <div class="muted" style="font-size:.85rem">Không lo giá — Mua là thích</div>
+        </div>
+      </div>
+
+      <div class="search" aria-hidden="true">
+        <input type="search" id="search" placeholder="Tìm điện thoại, ví dụ: iPhone 14" />
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--ghost" id="filterToggle">Bộ lọc</button>
+        <button class="btn" id="cartBtn">Giỏ hàng (<span id="cartCount">0</span>)</button>
+      </div>
+    </header>
+
+    <aside aria-label="Bộ lọc sản phẩm">
+      <div>
+        <div class="filter-title">Danh mục</div>
+        <div class="category-list" role="list">
+          <button data-category="all" class="active">Tất cả</button>
+          <button data-category="apple">Apple</button>
+          <button data-category="samsung">Samsung</button>
+          <button data-category="xiaomi">Xiaomi</button>
+          <button data-category="oppo">OPPO</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="filter-title">Giá</div>
+        <div class="muted">Chọn khoảng giá </div>
+        <div style="display:flex;gap:.5rem;margin-top:.5rem">
+          <button class="btn btn--ghost" data-price="all">Tất cả</button>
+          <button class="btn btn--ghost" data-price="under8">Dưới 8M</button>
+          <button class="btn btn--ghost" data-price="8to15">8M - 15M</button>
+          <button class="btn btn--ghost" data-price="above15">Trên 15M</button>
+        </div>
+      </div>
+
+      <div style="margin-top:auto">
+        <div class="muted" style="font-size:.85rem">Hỗ trợ: 0359 554 084</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero" role="region" aria-label="Khuyến mãi">
+        <div>
+          <h2>Flash Sale: Giảm đến 20% cho iPhone & Samsung</h2>
+          <p>Giao hàng trong 24h khu vực nội thành — Bảo hành chính hãng.</p>
+        </div>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <div class="badge">Free Ship</div>
+          <button class="btn">Xem chi tiết</button>
+        </div>
+      </div>
+
+      <section aria-label="Danh sách sản phẩm">
+        <h3 style="margin:0 0 .6rem 0">Sản phẩm nổi bật</h3>
+
+        <div class="products" id="productGrid">
+          <article class="card" data-category="apple" data-price="above15" data-id="p1">
+            <div class="thumb"><img src="D:\html\OIP.webp" alt="iPhone 15" /></div>
+            <div class="meta">
+              <div class="title">iPhone 15 Pro</div>
+              <div class="price">23.990.000₫</div>
+            </div>
+            <div class="specs">A17 • 256GB • Màu đen</div>
+            <div class="card-footer">
+              <button class="icon-btn" onclick="viewDetails('p1')">Xem</button>
+              <button class="icon-btn add" onclick="addToCart('p1')">Thêm vào giỏ</button>
+            </div>
+          </article>
+
+          <article class="card" data-category="samsung" data-price="8to15" data-id="p2">
+            <div class="thumb"><img src="D:\html\OIP (1).webp" alt="Samsung Galaxy S24" /></div>
+            <div class="meta">
+              <div class="title">Samsung Galaxy S24</div>
+              <div class="price">18.500.000₫</div>
+            </div>
+            <div class="specs">Snapdragon • 128GB • Màn 120Hz</div>
+            <div class="card-footer">
+              <button class="icon-btn" onclick="viewDetails('p2')">Xem</button>
+              <button class="icon-btn add" onclick="addToCart('p2')">Thêm vào giỏ</button>
+            </div>
+          </article>
+
+          <article class="card" data-category="xiaomi" data-price="under8" data-id="p3">
+            <div class="thumb"><img src="D:\html\OIP (2).webp" alt="Redmi Note" /></div>
+            <div class="meta">
+              <div class="title">Xiaomi Redmi Note 13</div>
+              <div class="price">6.200.000₫</div>
+            </div>
+            <div class="specs">Snapdragon • 8GB • Pin 5000mAh</div>
+            <div class="card-footer">
+              <button class="icon-btn" onclick="viewDetails('p3')">Xem</button>
+              <button class="icon-btn add" onclick="addToCart('p3')">Thêm vào giỏ</button>
+            </div>
+          </article>
+
+          <article class="card" data-category="oppo" data-price="8to15" data-id="p4">
+            <div class="thumb"><img src="D:\html\OIP (3).webp" alt="OPPO Find X" /></div>
+            <div class="meta">
+              <div class="title">OPPO Find X7</div>
+              <div class="price">11.900.000₫</div>
+            </div>
+            <div class="specs">Dimensity • 256GB • Sạc 80W</div>
+            <div class="card-footer">
+              <button class="icon-btn" onclick="viewDetails('p4')">Xem</button>
+              <button class="icon-btn add" onclick="addToCart('p4')">Thêm vào giỏ</button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="muted">© <strong>DVDMobileShop</strong> — Giao hàng toàn quốc</div>
+      <div class="muted">Thanh toán: COD • Thẻ • VNPay</div>
+    </footer>
+  </div>
+
+  <script>
+    // JS nhẹ: filter, cart demo (lưu tạm local)
+    const productGrid = document.getElementById('productGrid');
+    const categoryButtons = document.querySelectorAll('[data-category]');
+    const priceButtons = document.querySelectorAll('[data-price]');
+    const cartCountEl = document.getElementById('cartCount');
+
+    function setActive(buttonGroup, clicked){
+      buttonGroup.forEach(b=>b.classList.remove('active'));
+      clicked.classList.add('active');
+    }
+
+    categoryButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        setActive(categoryButtons, btn);
+        filterProducts();
+      });
+    });
+
+    priceButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        setActive(priceButtons, btn);
+        filterProducts();
+      });
+    });
+
+    function filterProducts(){
+      const cat = document.querySelector('[data-category].active')?.dataset.category || 'all';
+      const price = document.querySelector('[data-price].active')?.dataset.price || 'all';
+      const cards = productGrid.querySelectorAll('.card');
+      cards.forEach(card=>{
+        const c = card.dataset.category;
+        const p = card.dataset.price;
+        let show = true;
+        if(cat !== 'all' && c !== cat) show = false;
+        if(price !== 'all'){
+          if(price === 'under8' && p !== 'under8') show = false;
+          if(price === '8to15' && p !== '8to15') show = false;
+          if(price === 'above15' && p !== 'above15') show = false;
+        }
+        card.style.display = show ? '' : 'none';
+      });
+    }
+
+    // Giỏ hàng đơn giản
+    let cart = JSON.parse(localStorage.getItem('cart_demo') || '[]');
+    function saveCart(){ localStorage.setItem('cart_demo', JSON.stringify(cart)); updateCartCount(); }
+    function updateCartCount(){ cartCountEl.textContent = cart.length; }
+    updateCartCount();
+
+    function addToCart(id){
+      // đơn giản: push id
+      cart.push({id, qty:1});
+      saveCart();
+      // animation feedback
+      const btns = document.querySelectorAll('[data-id="'+id+'"] .add');
+      if(btns.length) btns.forEach(b=> {
+        b.textContent = 'Đã thêm ✓';
+        setTimeout(()=> b.textContent = 'Thêm vào giỏ', 900);
+      });
+    }
+
+    function viewDetails(id){
+      alert('Chi tiết sản phẩm: ' + id + '\\n(Đây là demo — bạn có thể mở modal chi tiết ở đây)');
+    }
+
+    // Toggling filter panel on small screens
+    document.getElementById('filterToggle').addEventListener('click', ()=>{
+      const aside = document.querySelector('aside');
+      const isHidden = aside.style.display === 'none' || getComputedStyle(aside).display === 'none';
+      aside.style.display = isHidden ? 'flex' : 'none';
+    });
+
+    // Demo: map price string to approximate ranges (used when adding more products programmatically)
+    // Sample: you can append more product cards dynamically here
+  </script>
+</body>
+</html>
